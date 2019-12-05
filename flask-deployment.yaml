@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask
+  labels:
+    name: flask
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: flask
+  template:
+    metadata:
+      labels:
+        name: flask
+    spec:
+      containers:
+      - name: flask
+        image: cuongtv/flash-test
+        ports:
+        - containerPort: 80
+        env:
+        - name: USER_DB
+          value: "postgres"
+        - name: PASS_DB
+          value: "mysecretpassword"
+        - name: PORT_DB
+          value: "5432"
+        - name: HOST_DB
+          value: postgres
+        - name: DATABASE
+          value: "postgres"
+      restartPolicy: Always

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    name: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: database
+  template:
+    metadata:
+      labels:
+        name: database
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:10.4-alpine
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_USER
+            value: "postgres"
+          - name: POSTGRES_PASSWORD
+            value: "mysecretpassword"
+      restartPolicy: Always
